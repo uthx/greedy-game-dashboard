@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const RevenueOptimization = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+  return <div></div>;
+};
 
-export default RevenueOptimization
+export default RevenueOptimization;
