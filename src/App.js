@@ -17,5 +17,6 @@ function App() {
 
 export default App;
 const AppContainer = styled.div`
-  text-align: center;
+  height: 100vh;
+  box-sizing: border-box;
 `;
