@@ -2,7 +2,7 @@ import React from "react";
 import { mockCompanyData } from "../../../Api/mockData/demo";
 import styled from "styled-components";
 import { Settings } from "@styled-icons/ionicons-sharp/Settings";
-import { pageColors, cardColors } from "../../../styles/colors";
+import { pageColors } from "../../../styles/colors";
 import CompanyCard from "../AppList/CompanyCard";
 
 const AppList = () => {

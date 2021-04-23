@@ -1,11 +1,10 @@
 //this component will create single Company cards component
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ArrowRightShort } from "@styled-icons/bootstrap/ArrowRightShort";
 import { cardColors } from "../../../styles/colors";
 const CompanyCard = ({ cardData }) => {
   const randomCardColor = cardColors[Math.floor(Math.random() * 3)];
-  console.log(cardData);
   const { appName, publisherName } = cardData;
   return (
     <Container>
