@@ -18,7 +18,11 @@ const FullDetail = () => {
   return (
     <div>
       <Container>
-        <Navbar> ADSOUL</Navbar>
+        <Navbar>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <span className="navbar_title">ADSOUL</span>
+          </Link>
+        </Navbar>
         <CompanyName cardColor={randomCardColor}>
           <p className="appName">
             <Link to="/">
@@ -56,14 +60,18 @@ const Container = styled.div`
 const Navbar = styled.div`
   width: 100%;
   background-color: ${pageColors.primary};
-  color: white;
-  text-align: left;
-  font-size: 1.7rem;
-  font-weight: bold;
   padding: 3rem;
-  padding-left: 4rem;
-  letter-spacing: 0.2rem;
-  margin-bottom: 1rem;
+  ${".navbar_title"} {
+    color: white;
+    text-align: left;
+    font-size: 1.7rem;
+    font-weight: bold;
+    padding-left: 4rem;
+    letter-spacing: 0.2rem;
+    margin: 0;
+    margin-bottom: 1rem;
+    text-decoration: none;
+  }
 `;
 
 const CompanyName = styled.div`
