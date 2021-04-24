@@ -2,17 +2,22 @@
 import React from "react";
 import styled from "styled-components";
 import { ArrowRightShort } from "@styled-icons/bootstrap/ArrowRightShort";
-import { cardColors } from "../../../styles/colors";
+import { cardColors } from "../../../../styles/colors";
+import { Link } from "react-router-dom";
 const CompanyCard = ({ cardData }) => {
   const randomCardColor = cardColors[Math.floor(Math.random() * 3)];
-  const { appName, publisherName } = cardData;
+  const { appName, publisherName, id } = cardData;
   return (
     <Container>
       <CompanyName cardColor={randomCardColor}>
         <p className="appName">
           <span src="" alt="" className="box" />
           {appName}
-          <IconArrow />
+          <Link
+            to={`companyDetails/${publisherName.split(" ").join("")}/${id}`}
+          >
+            <IconArrow />
+          </Link>
         </p>
         <p className="publisherName">{publisherName}</p>
       </CompanyName>
@@ -61,6 +66,7 @@ const CompanyName = styled.div`
     font-size: 2rem;
     margin-bottom: 0.2rem;
     font-weight: 500;
+    word-spacing: 0.1rem;
   }
   //styling Publisher name
   ${".publisherName"} {

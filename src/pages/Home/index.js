@@ -1,4 +1,4 @@
-import AppList from "./AppList/AppList";
+import List from "../Home/AppList";
 import styled from "styled-components";
 import BannerParent from "../Home/Banner";
 const Home = () => {
@@ -8,7 +8,7 @@ const Home = () => {
         <BannerParent />
       </Section>
       <Section>
-        <AppList />
+        <List />
       </Section>
     </Container>
   );
@@ -18,7 +18,7 @@ export default Home;
 
 const Container = styled.div`
   display: flex;
-  height: 100%;
+  height: 100vh;
 `;
 
 const Section = styled.div`

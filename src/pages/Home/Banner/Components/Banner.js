@@ -23,6 +23,9 @@ const Container = styled.div`
     text-align: left;
     font-size: 2rem;
     font-weight: bold;
+    letter-spacing: 0.2rem;
+    padding-left: 4rem;
+    display: inline-block;
   }
   ${"img"} {
     display: block;

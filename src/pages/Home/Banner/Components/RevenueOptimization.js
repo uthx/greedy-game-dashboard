@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { pageColors } from "../../../../styles/colors";
 import FillRate from "../../../../assets/icon1.svg";
-import ImproveCtr from "../../../../assets/icon1.svg";
-import RefreshRate from "../../../../assets/icon1.svg";
-import QuickIntegration from "../../../../assets/icon1.svg";
+import ImproveCtr from "../../../../assets/icon2.svg";
+import RefreshRate from "../../../../assets/icon3.svg";
+import QuickIntegration from "../../../../assets/icon4.svg";
 const RevenueOptimization = () => {
   return (
     <Container>
@@ -35,7 +35,7 @@ export default RevenueOptimization;
 
 const Container = styled.div`
   background-color: ${pageColors.secondary};
-  padding: 3rem;
+  padding: 3rem 3rem 3rem 5rem;
   height: 50vh;
 
   ${"p"} {
@@ -45,7 +45,7 @@ const Container = styled.div`
     font-size: 3rem;
   }
   ${"img"} {
-    height: 6rem;
+    height: 3.9rem;
   }
   ${".caption"} {
     font-size: 1.5rem;

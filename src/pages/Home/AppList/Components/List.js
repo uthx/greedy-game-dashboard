@@ -1,11 +1,11 @@
 import React from "react";
-import { mockCompanyData } from "../../../Api/mockData/demo";
+import { mockCompanyData } from "../../../../Api/mockData/demo";
 import styled from "styled-components";
 import { Settings } from "@styled-icons/ionicons-sharp/Settings";
-import { pageColors } from "../../../styles/colors";
-import CompanyCard from "../AppList/CompanyCard";
+import { pageColors } from "../../../../styles/colors";
+import CompanyCard from "./CompanyCard";
 
-const AppList = () => {
+const List = () => {
   const CompanyCards = mockCompanyData.map((card) => {
     return <CompanyCard key={card.id} cardData={card} />;
   });
@@ -20,7 +20,7 @@ const AppList = () => {
   );
 };
 
-export default AppList;
+export default List;
 
 const Container = styled.div`
   height: 100vh;
