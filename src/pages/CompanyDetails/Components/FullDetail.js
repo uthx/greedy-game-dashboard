@@ -7,33 +7,55 @@ import TableRow from "./TableRow";
 import { useRouteMatch, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchById, fetchAll } from "../../../redux/index";
-const FullDetail = () => {
-  const { appDataByIdStats } = useSelector((state) => state.byId);
+const FullDetail = (props) => {
+  // const { appDataByIdStats } = useSelector((state) => state.byId);
   const { allAppsData } = useSelector((state) => state.allApps);
+  const { allStatsData } = useSelector((state) => state.allStats);
+  const { appDataByIdStats } = useSelector((state) => state.byId);
+  const [companyName, setCompanyName] = useState();
+  const [companyStats, setCompanyStats] = useState();
+
   const dispatch = useDispatch();
   const randomCardColor = "#6156DC";
   const { params } = useRouteMatch();
   const { id } = params;
-  const [companyDetails, setCompanyDetails] = useState({
-    appName: "",
-    publisherName: "",
-  });
 
+  const appDataRec = allAppsData.length ? allAppsData : null;
+  const selectedData = appDataRec
+    ? appDataRec.find((el) => el.id === id)
+    : null;
+  const selectedStat = (() => {
+    if (appDataByIdStats) return appDataByIdStats;
+    if (allStatsData) return allStatsData[id];
+
+    return null;
+  })();
+  // console.log("selectedStat", selectedStat);
+  // console.log("selectedData", selectedData);
+
+  // allStatsData ? allStatsData[id] : null;
+  console.log("Data", selectedData);
+  console.log("Stat", selectedStat);
   useEffect(() => {
-    dispatch(fetchAll());
-    dispatch(fetchById(id));
-  }, [dispatch, id]);
+    if (!allAppsData.length || !allStatsData) {
+      dispatch(fetchAll());
+      dispatch(fetchById(id));
+    }
+  }, []);
+  console.log("appbyid called ", appDataByIdStats);
+  // const [companyDetails, setCompanyDetails] = useState({
+  //   appName: "",
+  //   publisherName: "",
+  // });
 
-  const { appName, publisherName } = mockCompanyData[id - 1];
-  const newData = newMockData[id].map((row) => {
-    return <TableRow key={id} data={row} />;
-  });
-  if (appDataByIdStats.length && allAppsData.length) {
-    console.log(appDataByIdStats);
-  }
+  // useEffect(() => {
+  //   dispatch(fetchAll());
+  //   dispatch(fetchById(id));
+  // }, [dispatch, id]);
+
   return (
     <div>
-      <Container>
+      {/* <Container>
         <Navbar>
           <Link to="/" style={{ textDecoration: "none" }}>
             <span className="navbar_title">ADSOUL</span>
@@ -64,14 +86,15 @@ const FullDetail = () => {
                     <th>Render Rate</th>
                   </tr>
                 </thead>
-                <tbody>{newData}</tbody>
+                <tbody>newData</tbody>
               </table>
             </DetailTable>
           </>
         ) : (
           <h1>Loading...</h1>
         )}
-      </Container>
+      </Container> */}
+      <h1>Hellow</h1>
     </div>
   );
 };
@@ -148,3 +171,13 @@ const DetailTable = styled.div`
     border: 1px solid lightgray;
   }
 `;
+
+// const { appName, publisherName } = mockCompanyData[id - 1];
+// const newData = newMockData[id].map((row) => {
+//   return <TableRow key={id} data={row} />;
+// });
+// if (appDataByIdStats.length && allAppsData.length) {
+//   console.log("under inf fdfdfdfdf88888888888888888888888")
+//   console.log(appDataByIdStats);
+//   console.log(allAppsData);
+// }

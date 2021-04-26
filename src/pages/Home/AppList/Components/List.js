@@ -21,7 +21,7 @@ const List = () => {
   }, [dispatch]);
 
   console.log("after useEffect");
-  if (Object.keys(allStatsData).length && allAppsData.length) {
+  if (allStatsData && allAppsData.length) {
     console.log("Done Loading All the Data");
   }
 
@@ -32,7 +32,7 @@ const List = () => {
         <SettingIcon />
       </MiniNav>
       <CompanyList>
-        {Object.keys(allStatsData).length && allAppsData.length ? (
+        {allStatsData && allAppsData.length ? (
           allAppsData.map((card) => {
             return (
               <CompanyCard
