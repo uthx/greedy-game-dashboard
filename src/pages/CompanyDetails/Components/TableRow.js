@@ -3,7 +3,6 @@ import styled from "styled-components";
 const TableRow = ({ data }) => {
   const { date, revenue, adRequest, adResponse, impressions, clicks } = data;
   const renderRate = ((impressions / adResponse) * 100).toFixed(0);
-  console.log(renderRate);
   return (
     <>
       <Tr>

@@ -1,4 +1,4 @@
-import FullDetail from "./FullDetail";
+import FullDetail from "./Components/FullDetail";
 import styled from "styled-components";
 
 const CompanyDetails = () => {

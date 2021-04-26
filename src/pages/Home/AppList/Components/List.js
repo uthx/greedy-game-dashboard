@@ -1,21 +1,51 @@
-import React from "react";
-import { mockCompanyData } from "../../../../Api/mockData/demo";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAll, fetchAllStats } from "../../../../redux";
 import styled from "styled-components";
 import { Settings } from "@styled-icons/ionicons-sharp/Settings";
 import { pageColors } from "../../../../styles/colors";
 import CompanyCard from "./CompanyCard";
 
 const List = () => {
-  const CompanyCards = mockCompanyData.map((card) => {
-    return <CompanyCard key={card.id} cardData={card} />;
-  });
+  const { allAppsData, loading } = useSelector((state) => state.allApps);
+  const { loading: statsLoaded, allStatsData } = useSelector(
+    (state) => state.allStats
+  );
+  const dispatch = useDispatch();
+
+  console.log("from apps ", loading, allAppsData);
+  console.log("from stats", statsLoaded, allStatsData);
+  useEffect(() => {
+    dispatch(fetchAll());
+    dispatch(fetchAllStats());
+  }, [dispatch]);
+
+  console.log("after useEffect");
+  if (Object.keys(allStatsData).length && allAppsData.length) {
+    console.log("Done Loading All the Data");
+  }
+
   return (
     <Container>
       <MiniNav>
         <span>Apps</span>
         <SettingIcon />
       </MiniNav>
-      <CompanyList>{CompanyCards}</CompanyList>
+      <CompanyList>
+        {Object.keys(allStatsData).length && allAppsData.length ? (
+          allAppsData.map((card) => {
+            return (
+              <CompanyCard
+                key={card.id}
+                cardData={card}
+                statData={allStatsData[card.id]}
+              />
+            );
+          })
+        ) : (
+          <h1>Loading</h1>
+        )}
+      </CompanyList>
     </Container>
   );
 };

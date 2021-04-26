@@ -1,12 +1,16 @@
 //this component will create single Company cards component
 import React from "react";
 import styled from "styled-components";
+import { handleData } from "../helperFunctions";
 import { ArrowRightShort } from "@styled-icons/bootstrap/ArrowRightShort";
 import { cardColors } from "../../../../styles/colors";
 import { Link } from "react-router-dom";
-const CompanyCard = ({ cardData }) => {
+
+const CompanyCard = ({ cardData, statData }) => {
   const randomCardColor = cardColors[Math.floor(Math.random() * 3)];
   const { appName, publisherName, id } = cardData;
+
+  const { revenue, adRequest, adResponse, impressions } = handleData(statData);
   return (
     <Container>
       <CompanyName cardColor={randomCardColor}>
@@ -24,19 +28,19 @@ const CompanyCard = ({ cardData }) => {
       <CompanyDetails>
         <ul>
           <li className="caption">Revenue</li>
-          <li className="data">100M</li>
+          <li className="data">{revenue}</li>
         </ul>
         <ul>
           <li className="caption">Ad Requests</li>
-          <li className="data">100M</li>
+          <li className="data">{adRequest}</li>
         </ul>
         <ul>
           <li className="caption">Ad Response</li>
-          <li className="data">100M</li>
+          <li className="data">{adResponse}</li>
         </ul>
         <ul>
           <li className="caption">Impressions</li>
-          <li className="data">100M</li>
+          <li className="data">{impressions}</li>
         </ul>
       </CompanyDetails>
     </Container>
@@ -44,7 +48,6 @@ const CompanyCard = ({ cardData }) => {
 };
 
 export default CompanyCard;
-
 const Container = styled.div`
   background-color: white;
   padding: 1rem;

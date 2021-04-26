@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { pageColors } from "../../styles/colors";
+import { pageColors } from "../../../styles/colors";
 import { ArrowLeftShort } from "@styled-icons/bootstrap/ArrowLeftShort";
-import { newMockData, mockCompanyData } from "../../Api/mockData/demo";
+import { newMockData, mockCompanyData } from "../../../Api/mockData/demo";
 import TableRow from "./TableRow";
 import { useRouteMatch, Link } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import { fetchById, fetchAll } from "../../../redux/index";
 const FullDetail = () => {
+  const { appDataByIdStats } = useSelector((state) => state.byId);
+  const { allAppsData } = useSelector((state) => state.allApps);
+  const dispatch = useDispatch();
   const randomCardColor = "#6156DC";
   const { params } = useRouteMatch();
   const { id } = params;
+  const [companyDetails, setCompanyDetails] = useState({
+    appName: "",
+    publisherName: "",
+  });
+
+  useEffect(() => {
+    dispatch(fetchAll());
+    dispatch(fetchById(id));
+  }, [dispatch, id]);
+
   const { appName, publisherName } = mockCompanyData[id - 1];
   const newData = newMockData[id].map((row) => {
     return <TableRow key={id} data={row} />;
   });
-
+  if (appDataByIdStats.length && allAppsData.length) {
+    console.log(appDataByIdStats);
+  }
   return (
     <div>
       <Container>
@@ -23,30 +39,38 @@ const FullDetail = () => {
             <span className="navbar_title">ADSOUL</span>
           </Link>
         </Navbar>
-        <CompanyName cardColor={randomCardColor}>
-          <p className="appName">
-            <Link to="/">
-              <IconArrow />
-            </Link>
-            <span src="" alt="" className="box" />
-            {appName}
-          </p>
-          <p className="publisherName">{publisherName}</p>
-        </CompanyName>
-        <NewTable>
-          <table>
-            <thead>
-              <th>Date</th>
-              <th>Revenue</th>
-              <th>Ad Requests</th>
-              <th>Ad Responses</th>
-              <th>Impressions</th>
-              <th>Clicks</th>
-              <th>Render Rate</th>
-            </thead>
-            <tbody>{newData}</tbody>
-          </table>
-        </NewTable>
+        {appDataByIdStats.length && allAppsData.length ? (
+          <>
+            <CompanyName cardColor={randomCardColor}>
+              <p className="appName">
+                <Link to="/">
+                  <IconArrow />
+                </Link>
+                <span src="" alt="" className="box" />
+                {companyDetails.appName}
+              </p>
+              <p className="publisherName">{companyDetails.publisherName}</p>
+            </CompanyName>
+            <DetailTable>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Revenue</th>
+                    <th>Ad Requests</th>
+                    <th>Ad Responses</th>
+                    <th>Impressions</th>
+                    <th>Clicks</th>
+                    <th>Render Rate</th>
+                  </tr>
+                </thead>
+                <tbody>{newData}</tbody>
+              </table>
+            </DetailTable>
+          </>
+        ) : (
+          <h1>Loading...</h1>
+        )}
       </Container>
     </div>
   );
@@ -107,7 +131,7 @@ const IconArrow = styled(ArrowLeftShort)`
 `;
 //styling table data
 
-const NewTable = styled.div`
+const DetailTable = styled.div`
   width: 90%;
   margin: 3rem auto;
 
@@ -115,12 +139,12 @@ const NewTable = styled.div`
     width: 100%;
     border-collapse: collapse;
   }
-  ${"thead > th"} {
+  ${"tr > th"} {
     padding: 2rem;
     font-weight: 550;
     font-size: 1.5rem;
   }
-  ${"thead"} {
+  ${"tr"} {
     border: 1px solid lightgray;
   }
 `;
