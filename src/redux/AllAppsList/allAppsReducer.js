@@ -7,7 +7,7 @@ import {
 //Initial State
 const initialState = {
   loading: false,
-  allAppsData: [],
+  allAppsData: null,
   error: "",
 };
 //reducer function

@@ -7,23 +7,14 @@ import { pageColors } from "../../../../styles/colors";
 import CompanyCard from "./CompanyCard";
 
 const List = () => {
-  const { allAppsData, loading } = useSelector((state) => state.allApps);
-  const { loading: statsLoaded, allStatsData } = useSelector(
-    (state) => state.allStats
-  );
+  const { allAppsData } = useSelector((state) => state.allApps);
+  const { allStatsData } = useSelector((state) => state.allStats);
   const dispatch = useDispatch();
 
-  console.log("from apps ", loading, allAppsData);
-  console.log("from stats", statsLoaded, allStatsData);
   useEffect(() => {
     dispatch(fetchAll());
     dispatch(fetchAllStats());
   }, [dispatch]);
-
-  console.log("after useEffect");
-  if (allStatsData && allAppsData.length) {
-    console.log("Done Loading All the Data");
-  }
 
   return (
     <Container>
@@ -32,7 +23,7 @@ const List = () => {
         <SettingIcon />
       </MiniNav>
       <CompanyList>
-        {allStatsData && allAppsData.length ? (
+        {allStatsData && allAppsData ? (
           allAppsData.map((card) => {
             return (
               <CompanyCard

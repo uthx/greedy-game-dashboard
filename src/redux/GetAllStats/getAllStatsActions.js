@@ -9,15 +9,12 @@ import { GET_ALL_STATS as allStats } from "../urlConstants";
 
 //action providers
 export const fetchAllStatsRequest = () => {
-  console.log("stat request");
   return {
     type: FETCH_ALL_STATS_REQUEST,
   };
 };
 
 export const fetchAllStatsSuccess = (appData) => {
-  console.log("stat Success");
-
   return {
     type: FETCH_ALL_STATS_SUCCESS,
     payload: appData,
@@ -25,8 +22,6 @@ export const fetchAllStatsSuccess = (appData) => {
 };
 
 export const fetchAllStatsFailure = (error) => {
-  console.log("stat Failure");
-
   return {
     type: FETCH_ALL_STATS_FAILURE,
     payload: error,

@@ -1,77 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import { pageColors } from "../../../styles/colors";
+import { companyLogo } from "../../../styles/logos";
 import { ArrowLeftShort } from "@styled-icons/bootstrap/ArrowLeftShort";
-import { newMockData, mockCompanyData } from "../../../Api/mockData/demo";
 import TableRow from "./TableRow";
 import { useRouteMatch, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchById, fetchAll } from "../../../redux/index";
 const FullDetail = (props) => {
-  // const { appDataByIdStats } = useSelector((state) => state.byId);
-  const { allAppsData } = useSelector((state) => state.allApps);
-  const { allStatsData } = useSelector((state) => state.allStats);
-  const { appDataByIdStats } = useSelector((state) => state.byId);
-  const [companyName, setCompanyName] = useState();
-  const [companyStats, setCompanyStats] = useState();
-
+  //Loding the States from Store
+  const { allAppsData } = useSelector((state) => state.allApps); //allAppsData = allCompanyDetailsByName
+  const { allStatsData } = useSelector((state) => state.allStats); //allStatsData = allCompanyDetailsByStats
+  const { appDataByIdStats } = useSelector((state) => state.byId); //appDataById = companyDetailsByStatsById
+  let isStoreFilled = allAppsData && allStatsData ? true : false;
+  console.log(isStoreFilled);
+  console.log({ allAppsData, allStatsData, appDataByIdStats });
+  //Extractions
   const dispatch = useDispatch();
-  const randomCardColor = "#6156DC";
   const { params } = useRouteMatch();
   const { id } = params;
 
-  const appDataRec = allAppsData.length ? allAppsData : null;
-  const selectedData = appDataRec
-    ? appDataRec.find((el) => el.id === id)
+  const companyNameData = allAppsData
+    ? allAppsData.find((el) => el.id === id)
     : null;
-  const selectedStat = (() => {
-    if (appDataByIdStats) return appDataByIdStats;
-    if (allStatsData) return allStatsData[id];
 
-    return null;
-  })();
-  // console.log("selectedStat", selectedStat);
-  // console.log("selectedData", selectedData);
-
-  // allStatsData ? allStatsData[id] : null;
-  console.log("Data", selectedData);
-  console.log("Stat", selectedStat);
-  useEffect(() => {
-    if (!allAppsData.length || !allStatsData) {
+  const companyStatsData = isStoreFilled
+    ? allStatsData[id]
+    : appDataByIdStats
+    ? appDataByIdStats
+    : null;
+  React.useEffect(() => {
+    if (!isStoreFilled) {
       dispatch(fetchAll());
       dispatch(fetchById(id));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("appbyid called ", appDataByIdStats);
-  // const [companyDetails, setCompanyDetails] = useState({
-  //   appName: "",
-  //   publisherName: "",
-  // });
 
-  // useEffect(() => {
-  //   dispatch(fetchAll());
-  //   dispatch(fetchById(id));
-  // }, [dispatch, id]);
+  let randomCardColor = "#6156DC";
+  console.log(isStoreFilled);
+  console.log({ companyNameData, companyStatsData });
 
   return (
     <div>
-      {/* <Container>
+      <Container>
         <Navbar>
           <Link to="/" style={{ textDecoration: "none" }}>
             <span className="navbar_title">ADSOUL</span>
           </Link>
         </Navbar>
-        {appDataByIdStats.length && allAppsData.length ? (
+        {companyStatsData && companyNameData ? (
           <>
             <CompanyName cardColor={randomCardColor}>
               <p className="appName">
                 <Link to="/">
                   <IconArrow />
                 </Link>
-                <span src="" alt="" className="box" />
-                {companyDetails.appName}
+                <img src={companyLogo[id]} alt="" className="box" />
+                {companyNameData.appName}
               </p>
-              <p className="publisherName">{companyDetails.publisherName}</p>
+              <p className="publisherName">{companyNameData.publisherName}</p>
             </CompanyName>
             <DetailTable>
               <table>
@@ -86,15 +75,18 @@ const FullDetail = (props) => {
                     <th>Render Rate</th>
                   </tr>
                 </thead>
-                <tbody>newData</tbody>
+                <tbody>
+                  {companyStatsData.map((stats) => (
+                    <TableRow key={uuidv4()} data={stats} />
+                  ))}
+                </tbody>
               </table>
             </DetailTable>
           </>
         ) : (
           <h1>Loading...</h1>
         )}
-      </Container> */}
-      <h1>Hellow</h1>
+      </Container>
     </div>
   );
 };
@@ -123,13 +115,12 @@ const Navbar = styled.div`
 
 const CompanyName = styled.div`
   overflow: auto;
-  ${"span"} {
+  ${"img"} {
     height: 5rem;
     width: 5rem;
     float: left;
     margin-right: 1rem;
     border-radius: 5px;
-    background-color: ${(props) => props.cardColor};
   }
   //styling appName
   ${".appName"} {

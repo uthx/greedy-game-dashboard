@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { handleData } from "../helperFunctions";
 import { ArrowRightShort } from "@styled-icons/bootstrap/ArrowRightShort";
 import { cardColors } from "../../../../styles/colors";
+import { companyLogo } from "../../../../styles/logos";
 import { Link } from "react-router-dom";
 
 const CompanyCard = ({ cardData, statData }) => {
@@ -13,18 +14,21 @@ const CompanyCard = ({ cardData, statData }) => {
   const { revenue, adRequest, adResponse, impressions } = handleData(statData);
   return (
     <Container>
-      <CompanyName cardColor={randomCardColor}>
-        <p className="appName">
-          <span src="" alt="" className="box" />
-          {appName}
-          <Link
-            to={`companyDetails/${publisherName.split(" ").join("")}/${id}`}
-          >
+      <Link
+        to={`companyDetails/${publisherName.split(" ").join("")}/${id}`}
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
+        <CompanyName cardColor={randomCardColor}>
+          <p className="appName">
+            <img src={companyLogo[id]} alt="" className="box" />
+            {appName}
+
             <IconArrow />
-          </Link>
-        </p>
-        <p className="publisherName">{publisherName}</p>
-      </CompanyName>
+          </p>
+          <p className="publisherName">{publisherName}</p>
+        </CompanyName>
+      </Link>
+
       <CompanyDetails>
         <ul>
           <li className="caption">Revenue</li>
@@ -56,13 +60,13 @@ const Container = styled.div`
 `;
 const CompanyName = styled.div`
   overflow: auto;
-  ${"span"} {
+  ${"img"} {
     height: 5rem;
     width: 5rem;
     float: left;
     margin-right: 1rem;
     border-radius: 5px;
-    background-color: ${(props) => props.cardColor};
+    /* background-color: ${(props) => props.cardColor}; */
   }
   //styling appName
   ${".appName"} {
