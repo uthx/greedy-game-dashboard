@@ -14,8 +14,7 @@ const FullDetail = (props) => {
   const { allStatsData } = useSelector((state) => state.allStats); //allStatsData = allCompanyDetailsByStats
   const { appDataByIdStats } = useSelector((state) => state.byId); //appDataById = companyDetailsByStatsById
   let isStoreFilled = allAppsData && allStatsData ? true : false;
-  console.log(isStoreFilled);
-  console.log({ allAppsData, allStatsData, appDataByIdStats });
+  //if we already have state filled in store than dispatching is not required
   //Extractions
   const dispatch = useDispatch();
   const { params } = useRouteMatch();
@@ -38,10 +37,6 @@ const FullDetail = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  let randomCardColor = "#6156DC";
-  console.log(isStoreFilled);
-  console.log({ companyNameData, companyStatsData });
-
   return (
     <div>
       <Container>
@@ -52,7 +47,7 @@ const FullDetail = (props) => {
         </Navbar>
         {companyStatsData && companyNameData ? (
           <>
-            <CompanyName cardColor={randomCardColor}>
+            <CompanyName>
               <p className="appName">
                 <Link to="/">
                   <IconArrow />
