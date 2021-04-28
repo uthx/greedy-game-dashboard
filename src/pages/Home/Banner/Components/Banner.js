@@ -1,7 +1,7 @@
 import React from "react";
-
 import Asset from "../../../../assets/asset1.svg";
 import { pageColors } from "../../../../styles/colors";
+import { device } from "../../../../styles/devices";
 import styled from "styled-components";
 const Banner = () => {
   return (
@@ -26,6 +26,8 @@ const Container = styled.div`
     letter-spacing: 0.2rem;
     padding-left: 4rem;
     display: inline-block;
+
+    @media ${device.mobileS} 
   }
   ${"img"} {
     display: block;

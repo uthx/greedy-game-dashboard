@@ -1,6 +1,5 @@
 import FullDetail from "./Components/FullDetail";
 import styled from "styled-components";
-
 const CompanyDetails = () => {
   return (
     <Container>

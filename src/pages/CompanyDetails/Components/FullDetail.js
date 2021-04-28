@@ -110,6 +110,8 @@ const Navbar = styled.div`
     margin: 0;
     margin-bottom: 1rem;
     text-decoration: none;
+    display: flex;
+    flex: 1;
   }
 `;
 
@@ -162,13 +164,3 @@ const DetailTable = styled.div`
     border: 1px solid lightgray;
   }
 `;
-
-// const { appName, publisherName } = mockCompanyData[id - 1];
-// const newData = newMockData[id].map((row) => {
-//   return <TableRow key={id} data={row} />;
-// });
-// if (appDataByIdStats.length && allAppsData.length) {
-//   console.log("under inf fdfdfdfdf88888888888888888888888")
-//   console.log(appDataByIdStats);
-//   console.log(allAppsData);
-// }
